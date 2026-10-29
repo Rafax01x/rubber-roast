@@ -3,6 +3,8 @@
 src/**
 assets/*.gif
 assets/threads-promo.png
+out/test/**
+.github/**
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md
