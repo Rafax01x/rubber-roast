@@ -1,4 +1,8 @@
-# rubber-roast
+# Rubber Roast
+
+[![CI](https://github.com/Rafax01x/rubber-roast/actions/workflows/ci.yml/badge.svg)](https://github.com/Rafax01x/rubber-roast/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Rafax01x/rubber-roast)](https://github.com/Rafax01x/rubber-roast/releases/tag/v1.0.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Extension VS Code yang me-roasting kode kamu — dengan sopan, tapi pedas.
 A VS Code extension that roasts your code — politely, but spicy.
@@ -9,7 +13,21 @@ A VS Code extension that roasts your code — politely, but spicy.
 > `assets/demo.gif` dengan rekaman ScreenToGif / LICEcap dari VS Code yang
 > sedang menjalankan extension ini untuk demo yang sesungguhnya.
 
+## Instalasi / Installation
+
+Extension ini belum tersedia di Marketplace, jadi instalasi saat ini lewat
+file `.vsix`:
+
+1. Download `rubber-roast-1.0.0.vsix` dari
+   [Releases](https://github.com/Rafax01x/rubber-roast/releases/tag/v1.0.0).
+2. Di VS Code, buka Extensions, klik menu `...`, pilih
+   **Install from VSIX**, lalu pilih file tadi.
+3. Simpan file kode apa pun — roasting-nya langsung muncul di akhir baris.
+
 ## GIF lucu sesuai kata-kata / Funny GIFs matching the roasts
+
+<details>
+<summary>Klik untuk melihat GIF per roasting</summary>
 
 GIF-GIF ini ditemukan di internet (Tenor / Giphy), dipasangkan dengan
 pesan roasting-nya, dan disimpan lokal di `assets/` — bukan rekaman
@@ -24,6 +42,8 @@ extension ini:
 
 Sumber asli: [This Is Fine di Tenor](https://tenor.com/view/this-is-fine-gif-24177057),
 [Computing di Giphy](http://giphy.com/gifs/computing-27npJ7KfvMsoM).
+
+</details>
 
 ## Fitur / Features
 
