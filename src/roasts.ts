@@ -4,6 +4,8 @@
  * be edited without touching the detection logic.
  */
 
+import type { RoastKind } from './scanner';
+
 export const EMPTY_CATCH_ROASTS: readonly string[] = [
 	'catch kosong ini bukan error handling, ini pengabaian.',
 	'error-nya ditangkap, lalu dilepas lagi tanpa pamit.',
@@ -98,4 +100,30 @@ export const ROASTS: readonly string[] = [
 /** Pick a random roast from a list, defaulting to the full list. */
 export function randomRoast(roasts: readonly string[] = ROASTS): string {
 	return roasts[Math.floor(Math.random() * roasts.length)];
+}
+
+/** The Indonesian roast list for each issue kind. */
+export const ROASTS_BY_KIND: Record<RoastKind, readonly string[]> = {
+	emptyCatch: EMPTY_CATCH_ROASTS,
+	consoleLog: CONSOLE_LOG_ROASTS,
+	todoFixme: TODO_FIXME_ROASTS
+};
+
+/** Small deterministic hash, so one issue always gets the same roast. */
+function hashSeed(seed: string): number {
+	let hash = 5381;
+	for (let i = 0; i < seed.length; i++) {
+		hash = ((hash << 5) + hash + seed.charCodeAt(i)) >>> 0;
+	}
+	return hash;
+}
+
+/**
+ * Pick the roast for one issue, deterministically: the same issue
+ * (same kind, line and message) always shows the same roast, so the
+ * inline text does not change on every save or editor switch.
+ */
+export function roastForIssue(kind: RoastKind, seed: string): string {
+	const roasts = ROASTS_BY_KIND[kind];
+	return roasts[hashSeed(`${kind}:${seed}`) % roasts.length];
 }

@@ -8,6 +8,7 @@ suite('scanner', () => {
 		assert.strictEqual(issues.length, 1);
 		assert.strictEqual(issues[0].line, 3);
 		assert.strictEqual(issues[0].severity, 'high');
+		assert.strictEqual(issues[0].kind, 'emptyCatch');
 		assert.match(issues[0].message, /empty catch/i);
 	});
 
@@ -45,6 +46,7 @@ suite('scanner', () => {
 		assert.strictEqual(issues.length, 1);
 		assert.strictEqual(issues[0].line, 6);
 		assert.strictEqual(issues[0].severity, 'medium');
+		assert.strictEqual(issues[0].kind, 'consoleLog');
 		assert.match(issues[0].message, /7 console\.log/);
 	});
 
@@ -53,6 +55,7 @@ suite('scanner', () => {
 		assert.strictEqual(issues.length, 1);
 		assert.strictEqual(issues[0].line, 1);
 		assert.strictEqual(issues[0].severity, 'low');
+		assert.strictEqual(issues[0].kind, 'todoFixme');
 		assert.match(issues[0].message, /TODO/);
 	});
 

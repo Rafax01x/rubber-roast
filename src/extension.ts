@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 
 import { scanDocument } from './scanner';
+import { roastForIssue } from './roasts';
 
 // Dim yellow, used for every roast issue's inline text.
 const DIM_YELLOW = '#b5a642';
@@ -33,7 +34,7 @@ function updateRoastDecorations(editor: vscode.TextEditor | undefined): void {
 				range: new vscode.Range(end, end),
 				renderOptions: {
 					after: {
-						contentText: ` ${issue.message}`,
+						contentText: ` ${roastForIssue(issue.kind, `${issue.line}:${issue.message}`)}`,
 						color: DIM_YELLOW
 					}
 				}
@@ -49,18 +50,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "rubber-roast" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('rubber-roast.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from rubber-roast!');
-	});
-
-	context.subscriptions.push(disposable);
 	context.subscriptions.push(roastDecorationType);
 
 	const outputChannel = vscode.window.createOutputChannel('Rubber Roast');
@@ -88,7 +77,8 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		for (const issue of issues) {
-			outputChannel.appendLine(`Line ${issue.line} [${issue.severity}] ${issue.message}`);
+			const roast = roastForIssue(issue.kind, `${issue.line}:${issue.message}`);
+			outputChannel.appendLine(`Line ${issue.line} [${issue.severity}] ${issue.message} — ${roast}`);
 		}
 		outputChannel.show(true);
 		vscode.window.showInformationMessage(

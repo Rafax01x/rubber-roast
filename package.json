@@ -1,49 +1,56 @@
 {
-  "name": "rubber-roast",
-  "displayName": "rubber-roast",
-  "icon": "assets/icon.png",
-  "description": "",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.144.0"
-  },
-  "categories": [
-    "Other"
-  ],
   "activationEvents": [],
-  "main": "./out/extension.js",
+  "author": "Rafax01x",
+  "categories": [
+    "Linters"
+  ],
   "contributes": {
     "commands": [
-      {
-        "command": "rubber-roast.helloWorld",
-        "title": "Hello World"
-      },
       {
         "command": "rubber-roast.roastFile",
         "title": "Roast File"
       }
     ]
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
-  },
+  "description": "VS Code extension that roasts your code on save — empty catch blocks, excess console.log, and TODO/FIXME comments, with funny Indonesian and English messages.",
   "devDependencies": {
-    "@types/vscode": "^1.144.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "24.x",
-    "typescript-eslint": "^8.61.1",
+    "@types/vscode": "^1.144.0",
     "eslint": "^10.5.0",
     "typescript": "^6.0.3",
-    "@vscode/test-cli": "^0.0.15",
-    "@vscode/test-electron": "^3.0.0"
+    "typescript-eslint": "^8.61.1"
   },
+  "displayName": "Rubber Roast",
+  "engines": {
+    "vscode": "^1.144.0"
+  },
+  "icon": "assets/icon.png",
+  "keywords": [
+    "roast",
+    "funny",
+    "humor",
+    "code-quality",
+    "linter"
+  ],
+  "license": "MIT",
+  "main": "./out/extension.js",
+  "name": "rubber-roast",
   "overrides": {
     "diff": "^8.0.4",
     "serialize-javascript": "^7.0.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rafax01x/rubber-roast.git"
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "lint": "eslint src",
+    "pretest": "npm run compile && npm run lint",
+    "test": "npx mocha --ui tdd out/test/scanner.test.js out/test/roasts.test.js",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
+  },
+  "version": "0.0.1"
 }

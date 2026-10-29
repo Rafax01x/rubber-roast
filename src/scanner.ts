@@ -1,9 +1,13 @@
 export type RoastSeverity = 'low' | 'medium' | 'high';
 
+/** Which roast list an issue maps to. Used to pick its funny message. */
+export type RoastKind = 'emptyCatch' | 'consoleLog' | 'todoFixme';
+
 export interface RoastIssue {
 	line: number;
 	message: string;
 	severity: RoastSeverity;
+	kind: RoastKind;
 }
 
 const MAX_CONSOLE_LOG = 5;
@@ -125,7 +129,8 @@ function findEmptyCatches(parts: LineParts[]): RoastIssue[] {
 				issues.push({
 					line: lineIndex + 1,
 					message: 'Empty catch block: errors are silently swallowed',
-					severity: 'high'
+					severity: 'high',
+					kind: 'emptyCatch'
 				});
 			}
 		}
@@ -154,7 +159,8 @@ function findExcessConsoleLogs(parts: LineParts[]): RoastIssue[] {
 	return [{
 		line: logLines[MAX_CONSOLE_LOG],
 		message: `Found ${logLines.length} console.log calls in this file (more than ${MAX_CONSOLE_LOG})`,
-		severity: 'medium'
+		severity: 'medium',
+		kind: 'consoleLog'
 	}];
 }
 
@@ -172,7 +178,8 @@ function findTodoFixme(parts: LineParts[]): RoastIssue[] {
 			issues.push({
 				line: i + 1,
 				message: `${keyword} found in comment: ${comment.trim()}`,
-				severity: keyword === 'FIXME' ? 'medium' : 'low'
+				severity: keyword === 'FIXME' ? 'medium' : 'low',
+				kind: 'todoFixme'
 			});
 		}
 	}

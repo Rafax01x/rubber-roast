@@ -28,10 +28,12 @@ Sumber asli: [This Is Fine di Tenor](https://tenor.com/view/this-is-fine-gif-241
 ## Fitur / Features
 
 - **Scan on save** — setiap file disimpan, `scanDocument` dijalankan dan
-  hasilnya tampil sebagai teks inline kuning redup di akhir baris.
+  pesan roasting-nya tampil sebagai teks inline kuning redup di akhir baris
+  (satu issue selalu dapat roasting yang sama, jadi teksnya tidak berubah
+  tiap save).
 - **Roast File command** — jalankan `Roast File` dari Command Palette untuk
   memindai file yang sedang dibuka; ringkasannya muncul di notification,
-  detailnya di output channel **Rubber Roast**.
+  detail teknis + roasting-nya di output channel **Rubber Roast**.
 - **3 deteksi** — blok `catch` kosong, lebih dari 5 `console.log` dalam
   satu file, dan komentar berisi TODO / FIXME.
 - **50 roasting message lucu** — di `src/roasts.ts`, 25 Bahasa Indonesia +
@@ -42,20 +44,14 @@ Sumber asli: [This Is Fine di Tenor](https://tenor.com/view/this-is-fine-gif-241
 | Command | Fungsi |
 |---|---|
 | `rubber-roast.roastFile` — Roast File | Pindai file aktif, tampilkan di notification + output channel |
-| `rubber-roast.helloWorld` — Hello World | Perintah contoh bawaan generator |
 
 ## Pengembangan / Development
 
 ```sh
 npm install
-npm run compile   # tsc
-npm run lint      # eslint
-```
-
-Jalankan test scanner (tanpa VS Code host):
-
-```sh
-npx mocha --ui tdd out/test/scanner.test.js
+npm test          # compile + lint + unit test (tanpa VS Code host)
+npm run compile   # tsc saja
+npm run lint      # eslint saja
 ```
 
 Tekan `F5` di VS Code untuk menjalankan extension di Extension Development Host.
@@ -65,12 +61,20 @@ Tekan `F5` di VS Code untuk menjalankan extension di Extension Development Host.
 ```
 src/
   scanner.ts        # scanDocument() + tipe RoastIssue
-  roasts.ts         # 50 pesan roasting lucu (ID + EN)
+  roasts.ts         # 50 pesan roasting lucu (ID + EN) + roastForIssue()
   extension.ts      # decoration inline + command roastFile
   test/
-    scanner.test.ts # 13 unit test scanner
-    extension.test.ts
+    scanner.test.ts # unit test scanner (termasuk kind per issue)
+    roasts.test.ts  # unit test roasting deterministik
 assets/
   icon.png          # ikon extension 128x128
   demo.gif          # GIF demo
+.github/workflows/
+  ci.yml            # compile + lint + test tiap push ke main
+LICENSE             # MIT
 ```
+
+## Lisensi / License
+
+MIT — lihat file `LICENSE`.
+

@@ -1,6 +1,8 @@
 .vscode/**
 .vscode-test/**
 src/**
+assets/*.gif
+assets/threads-promo.png
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md
